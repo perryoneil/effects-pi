@@ -1,0 +1,12 @@
+[Unit]
+Description=Sound Effect Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python /home/coalcreekfire/Documents/heartbeat_server.py
+WorkingDirectory=/home/coalcreekfire/Documents
+Restart=no
+User=coalcreekfire
+
+[Install]
+WantedBy=multi-user.target

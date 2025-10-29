@@ -1,0 +1,61 @@
+Requirement
+Use a client-server architecture to play a sound file on two or more Raspberry Pi servers simultaneously.
+
+Default port 9915
+
+There are one or more Windows 11 touch screen clients.
+The client will save its state across instantiations.
+The client GUI has the title "Music Network Controller" and the subtitle "Heartbeat Effect"
+
+There are two or more headless Raspberry Pi servers.
+A server is a headless Raspberry Pi 3.
+The server is identified by the network name and port 9915.
+There is one color organ connected to the 3.5 mm audio port left channel.
+
+There are one or more audio files in the Documents folder on the server.
+The client GUI accepts the filename, volume, playcount, interval, start time and end time.
+
+The client sends a play or stop request to one or more servers simultaneously.
+The client sends a play request specifies a filename, volume, and playcount.
+The server responds to a play request by playing the file.
+The client has a stop button that initiates a stop request to servers.
+The server responds to a stop request by halting play.
+The client periodically sends a ping request to each server.
+The server acknowledges receipt of a ping request with its status.
+The server sends a status when play completes.
+
+The client GUI will have one row for each server.
+A row displays the server name, hostname, status, playing, and most recent request.
+The server name is a user defined alphanumeric string.
+The status is OK if the server responded to the most recent client request.
+The playing indicator is Yes if the server reports that it is playing.
+
+The GUI has an editor that can add, edit, and delete a row.
+The user can select a row.
+The row selection is cleared when the edit action completes.
+
+If an interval is specified, the client will automatically send a play request after interval minutes have elapsed.
+Automatic playback begins at start time and ceases at end time.
+
+The client exits cleanly when the user closes the window.
+The client does not change the state of the server when it exits.
+
+Python
+PyQT6
+Client-server communication using TCP/IP.
+Impose a rate limit of one request every 200 ms.
+Wait for playback to complete before starting the next playback.
+
+One file for the client and one file for the server.
+Add logging
+Add comments
+Log launch time, launch duration, and memory footprint.
+Main execution guarded by if name == "main":
+A constructor that builds the UI.
+Docstrings for the file and the class.
+PEP 8 compliant; use descriptive variable names.
+Handle QApplication creation and teardown correctly.
+Use cvlc for playback.
+
+The GUI opens when the client software is invoked. The GUI returns success when closed normally by the user.
+The server is invoked automatically at boot time. It terminates and returns success when the Raspberry Pi is shutdown.
